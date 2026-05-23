@@ -21,6 +21,32 @@ const canonicalUrl = SITE_URL + Astro.url.pathname;
 const ogImageUrl = SITE_URL + '/og-image.jpg';
 const ogLocale = lang === 'de' ? 'de_DE' : 'en_US';
 const ogLocaleAlternate = lang === 'de' ? 'en_US' : 'de_DE';
+
+// JSON-LD Person schema — helps Google recognise the entity "Lia Meißner"
+// and consolidate her official profiles. Only emitted on the homepages.
+const isHome = Astro.url.pathname === '/' || Astro.url.pathname === '/en/';
+const personSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: 'Lia Meißner',
+  alternateName: 'Lia Meissner',
+  url: SITE_URL,
+  image: ogImageUrl,
+  jobTitle: ['Zukunftsforscherin', 'Psychologin', 'Strategin'],
+  description: copy.meta.description,
+  sameAs: [
+    'https://www.linkedin.com/in/liameissner/',
+    'https://substack.com/@heartfeltfutures',
+    'https://www.researchgate.net/profile/Lia-Meissner',
+  ],
+  alumniOf: [
+    { '@type': 'CollegeOrUniversity', name: 'Goethe-Universität Frankfurt' },
+    { '@type': 'CollegeOrUniversity', name: 'Universität Zürich' },
+    { '@type': 'CollegeOrUniversity', name: 'Universität Witten/Herdecke' },
+    { '@type': 'CollegeOrUniversity', name: 'Stanford University' },
+  ],
+  knowsAbout: ['Strategic Foresight', 'Zukunftsforschung', 'Systemische Therapie', 'Speculative Design'],
+};
 ---
 <!doctype html>
 <html lang={copy.htmlLang}>
@@ -58,6 +84,8 @@ const ogLocaleAlternate = lang === 'de' ? 'en_US' : 'de_DE';
     href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&display=swap"
     rel="stylesheet"
   />
+
+  {isHome && <script type="application/ld+json" set:html={JSON.stringify(personSchema)} />}
 </head>
 <body>
   <slot />

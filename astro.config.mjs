@@ -2,6 +2,7 @@
 import { defineConfig } from 'astro/config';
 
 import tailwindcss from '@tailwindcss/vite';
+import sitemap from '@astrojs/sitemap';
 
 // https://astro.build/config
 // Base path: while served from a project-page URL
@@ -14,6 +15,7 @@ const base = process.env.SITE_BASE ?? '/';
 export default defineConfig({
   site: 'https://liameissner.me',
   base,
+  integrations: [sitemap()],
   vite: {
     plugins: [tailwindcss()],
   },
