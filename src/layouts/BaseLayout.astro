@@ -6,14 +6,14 @@ interface Props {
   title?: string;
   description?: string;
   lang?: Lang;
+  /** Set true on pages that should stay out of search results (e.g. legal pages). */
+  noindex?: boolean;
 }
 
-const { lang = 'de', title: titleOverride, description: descriptionOverride } = Astro.props;
+const { lang = 'de', title: titleOverride, description: descriptionOverride, noindex = false } = Astro.props;
 const copy = t(lang);
 const title = titleOverride ?? copy.meta.title;
 const description = descriptionOverride ?? copy.meta.description;
-const otherHref = copy.nav.langSwitchHref;
-const otherLang = lang === 'de' ? 'en' : 'de';
 
 // Canonical URL and OG metadata
 const SITE_URL = 'https://liameissner.me';
@@ -21,6 +21,7 @@ const canonicalUrl = SITE_URL + Astro.url.pathname;
 const ogImageUrl = SITE_URL + '/og-image.jpg';
 const ogLocale = lang === 'de' ? 'de_DE' : 'en_US';
 const ogLocaleAlternate = lang === 'de' ? 'en_US' : 'de_DE';
+const robotsContent = noindex ? 'noindex, follow' : 'index, follow, max-image-preview:large';
 
 // JSON-LD Person schema — helps Google recognise the entity "Lia Meißner"
 // and consolidate her official profiles. Only emitted on the homepages.
@@ -34,18 +35,43 @@ const personSchema = {
   image: ogImageUrl,
   jobTitle: ['Zukunftsforscherin', 'Psychologin', 'Strategin'],
   description: copy.meta.description,
-  sameAs: [
-    'https://www.linkedin.com/in/liameissner/',
-    'https://substack.com/@heartfeltfutures',
-    'https://www.researchgate.net/profile/Lia-Meissner',
-  ],
+  address: {
+    '@type': 'PostalAddress',
+    addressLocality: 'Berlin',
+    addressCountry: 'DE',
+  },
+  worksFor: {
+    '@type': 'Organization',
+    name: 'Life Repair Kit',
+    url: 'https://www.liferepairkit.com',
+  },
   alumniOf: [
     { '@type': 'CollegeOrUniversity', name: 'Goethe-Universität Frankfurt' },
     { '@type': 'CollegeOrUniversity', name: 'Universität Zürich' },
     { '@type': 'CollegeOrUniversity', name: 'Universität Witten/Herdecke' },
     { '@type': 'CollegeOrUniversity', name: 'Stanford University' },
   ],
-  knowsAbout: ['Strategic Foresight', 'Zukunftsforschung', 'Systemische Therapie', 'Speculative Design'],
+  knowsAbout: [
+    'Strategic Foresight',
+    'Futures Studies',
+    'Horizon Scanning',
+    'Anticipatory Strategy',
+    'Zukunftsforschung',
+    'Systemic Coaching',
+    'Systemische Therapie',
+    'Resilience',
+    'Life Transitions',
+    'Sensemaking',
+    'Speculative Design',
+  ],
+  sameAs: [
+    'https://www.linkedin.com/in/liameissner/',
+    'https://substack.com/@heartfeltfutures',
+    'https://www.researchgate.net/profile/Lia-Meissner',
+    'https://complicated.life/de/finde-einen-therapeuten/berlin/systemische-beraterin-systemische-therapeutin-lia-meissner',
+    'https://www.zukunftsforscherin.de/zukunftsforscherinnen/1pysid8851-lia-meiner',
+    'https://www.liferepairkit.com',
+  ],
 };
 ---
 <!doctype html>
@@ -55,10 +81,17 @@ const personSchema = {
   <title>{title}</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="description" content={description} />
+  <meta name="author" content={copy.brand} />
+  <meta name="robots" content={robotsContent} />
   <link rel="canonical" href={canonicalUrl} />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-  <link rel="alternate" hreflang={otherLang} href={otherHref} />
-  <link rel="alternate" hreflang="x-default" href="/" />
+  {isHome && (
+    <>
+      <link rel="alternate" hreflang="de" href={`${SITE_URL}/`} />
+      <link rel="alternate" hreflang="en" href={`${SITE_URL}/en/`} />
+      <link rel="alternate" hreflang="x-default" href={`${SITE_URL}/`} />
+    </>
+  )}
 
   {/* Open Graph (LinkedIn, Slack, WhatsApp, Facebook, etc.) */}
   <meta property="og:type" content="website" />
@@ -68,10 +101,10 @@ const personSchema = {
   <meta property="og:image" content={ogImageUrl} />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
-  <meta property="og:image:alt" content="Lia Meißner — fühlen. denken. gestalten." />
+  <meta property="og:image:alt" content={`${copy.brand} — fühlen. denken. gestalten.`} />
   <meta property="og:locale" content={ogLocale} />
   <meta property="og:locale:alternate" content={ogLocaleAlternate} />
-  <meta property="og:site_name" content="Lia Meißner" />
+  <meta property="og:site_name" content={copy.brand} />
 
   {/* Twitter / X Card */}
   <meta name="twitter:card" content="summary_large_image" />

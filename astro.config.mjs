@@ -15,7 +15,22 @@ const base = process.env.SITE_BASE ?? '/';
 export default defineConfig({
   site: 'https://liameissner.me',
   base,
-  integrations: [sitemap()],
+  integrations: [
+    sitemap({
+      i18n: {
+        defaultLocale: 'de',
+        locales: {
+          de: 'de-DE',
+          en: 'en-US',
+        },
+      },
+      // Keep noindex legal pages out of the sitemap.
+      filter: (page) => !page.includes('/impressum') && !page.includes('/datenschutz'),
+      changefreq: 'monthly',
+      priority: 0.8,
+      lastmod: new Date(),
+    }),
+  ],
   vite: {
     plugins: [tailwindcss()],
   },

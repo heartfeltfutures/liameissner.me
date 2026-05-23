@@ -125,7 +125,7 @@ export const translations: Record<Lang, Translations> = {
     htmlLang: 'de',
     brand: 'Lia Meißner',
     meta: {
-      title: 'Lia Meißner — Heartfelt Futures',
+      title: 'Lia Meißner — Strategic Foresight Consultant & Systemic Resilience Coach',
       description:
         'Lia Meißner — Zukunftsforscherin und Psychologin, Gründerin von Life Repair Kit & Heartfelt Futures.',
     },
@@ -378,7 +378,7 @@ export const translations: Record<Lang, Translations> = {
     htmlLang: 'en',
     brand: 'Lia Meissner',
     meta: {
-      title: 'Lia Meissner — Heartfelt Futures',
+      title: 'Lia Meissner — Strategic Foresight Consultant & Systemic Resilience Coach',
       description:
         'Lia Meissner — future scientist and psychologist, founder of Life Repair Kit & Heartfelt Futures.',
     },
