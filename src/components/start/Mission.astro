@@ -1,0 +1,93 @@
+---
+// Mission (#wofur) — deutsche Startseite. Texte stehen direkt hier.
+// Die englische Seite nutzt weiterhin src/components/Mission.astro.
+---
+<section class="section mission" id="wofur">
+  <div class="mission-inner">
+    <div class="kicker">MISSION HEARTFELT FUTURES</div>
+
+    <p class="mission-lead">
+      Die Krisen unserer Zeit verdichten sich zunehmend und verdunkeln unsere Zukunftsvorstellungen.
+    </p>
+
+    <p class="mission-statement">Ich liebe es, groß zu denken – gerade jetzt!</p>
+
+    <p class="mission-lead">
+      Gemeinsam entwerfen wir Zukunftsbilder für eine resiliente Gesellschaft: Bilder, die Zuversicht geben und uns wieder mit unserer Kreativität und Begeisterung verbinden.
+    </p>
+
+    <h2 class="mission-theme">Mein Thema ist Resilienz.</h2>
+
+    <div class="mission-brands">
+      <div class="brand-col brand-hf">
+        <p>
+          Mit <strong>Heartfelt Futures</strong> begleite ich Unternehmen, Verwaltungen und Zivilgesellschaft dabei,
+        </p>
+        <ul>
+          <li>wünschenswerte Zukünfte zu entwerfen,</li>
+          <li>Strategien für eine klimaresiliente Gesellschaft zu entwickeln und</li>
+          <li>in der Dauerkrise handlungsfähig und gestaltungsmutig zu bleiben.</li>
+        </ul>
+      </div>
+      <div class="brand-col brand-lrk">
+        <p>
+          Mit dem <strong>Life Repair Kit</strong> unterstütze ich Menschen dabei, gut durch Krisen und Übergänge zu kommen und die emotionale Seite der gesellschaftlichen Veränderungen zu verarbeiten. Mehr zu meiner psychologischen Arbeit auf <a class="link" href="https://www.liferepairkit.de" target="_blank" rel="noopener noreferrer">www.liferepairkit.de</a>.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .mission-inner {
+    max-width: 820px;
+  }
+  .mission-lead {
+    font-family: var(--serif);
+    font-size: clamp(26px, 3.4vw, 38px);
+    line-height: 1.2;
+    color: var(--ink);
+    max-width: none;
+    margin: 0;
+  }
+  .mission-statement {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: clamp(36px, 5.5vw, 64px);
+    line-height: 1.05;
+    color: var(--accent);
+    max-width: none;
+    margin: clamp(28px, 4vw, 48px) 0;
+  }
+  .mission-theme {
+    font-size: clamp(28px, 3.6vw, 40px);
+    margin: clamp(48px, 7vw, 88px) 0 clamp(24px, 3vw, 36px);
+  }
+  .mission-brands {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(28px, 4vw, 48px);
+  }
+  /* The two brands as two coloured lines: blue = Heartfelt Futures,
+     yellow = Life Repair Kit (the only place yellow is used). */
+  .brand-col {
+    padding-top: 20px;
+    border-top: 3px solid var(--accent);
+    font-size: 16px;
+    line-height: 1.65;
+    color: var(--ink-2);
+  }
+  .brand-lrk { border-top-color: var(--lrk-yellow); }
+  .brand-col p { margin: 0 0 0.75em; }
+  .brand-col strong { font-weight: 600; color: var(--ink); }
+  .brand-col ul {
+    list-style: disc;
+    padding-left: 1.2em;
+  }
+  .brand-col li { margin-bottom: 0.35em; }
+  .brand-col li::marker { color: var(--accent); }
+
+  @media (max-width: 700px) {
+    .mission-brands { grid-template-columns: 1fr; }
+  }
+</style>

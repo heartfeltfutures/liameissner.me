@@ -26,6 +26,17 @@
   --serif: 'Instrument Serif', 'GT Sectra', Georgia, serif;
   --sans: 'Inter', system-ui, -apple-system, sans-serif;
   --pad-x: clamp(20px, 5vw, 72px);
+  /* Heartfelt Futures band (Meine Angebote) — dark blue. */
+  --navy: #0e1b2e;
+  /* Life Repair Kit — used ONLY for references to the Life Repair Kit. */
+  --lrk-yellow: #e8b300;
+  /* Hairline on dark panels — --paper at 30 %. */
+  --rule-on-dark: rgba(243, 239, 230, 0.3);
+  /* Rounded tiles (Aktuelles). */
+  --radius-card: 16px;
+  /* Motion for expand/collapse and hover transitions. */
+  --dur: 300ms;
+  --ease-std: ease-out;
 }
 
 * { box-sizing: border-box; }
