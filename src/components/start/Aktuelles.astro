@@ -140,6 +140,18 @@ const groups = Array.from({ length: copies }, (_, g) => g);
   .news-marquee:global(.is-manual) .news-group[aria-hidden="true"] { display: none; }
   .news-marquee:global(.is-manual) .news-card { scroll-snap-align: start; }
 
+  /* Mouse drag (src/scripts/site.js): grab cursor, no snapping mid-drag. */
+  @media (hover: hover) and (pointer: fine) {
+    .is-static .news-marquee { cursor: auto; }
+    .news-marquee { cursor: grab; }
+  }
+  .news-marquee:global(.is-dragging) {
+    cursor: grabbing;
+    scroll-snap-type: none;
+    user-select: none;
+  }
+  .news-marquee:global(.is-dragging) .news-card { pointer-events: none; }
+
   /* Arrows in the existing carousel style (square, hairline border). */
   .news-arrow {
     position: absolute;

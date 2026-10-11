@@ -245,6 +245,48 @@ document.querySelectorAll('.news-marquee-wrap').forEach((wrap) => {
   // Touch: the animated band is overflow:hidden, so the first touch switches
   // it to the native scroller — swiping works from then on.
   marquee.addEventListener('touchstart', enterManual, { passive: true });
+
+  // Trackpad / horizontal mouse wheel: switch to the native scroller and let
+  // the browser scroll it. Vertical wheel keeps scrolling the page.
+  marquee.addEventListener('wheel', (e) => {
+    if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) enterManual();
+  }, { passive: true });
+
+  // Mouse drag: click and drag the band sideways. A real drag (> 5px)
+  // suppresses the click so a card link doesn't open on release.
+  let drag = null;
+  marquee.addEventListener('pointerdown', (e) => {
+    if (e.pointerType !== 'mouse' || e.button !== 0) return;
+    drag = { x: e.clientX, left: 0, moved: false };
+  });
+  marquee.addEventListener('pointermove', (e) => {
+    if (!drag) return;
+    const dx = e.clientX - drag.x;
+    if (!drag.moved) {
+      if (Math.abs(dx) < 5) return;
+      drag.moved = true;
+      enterManual();
+      drag.left = marquee.scrollLeft;
+      marquee.classList.add('is-dragging');
+      marquee.setPointerCapture(e.pointerId);
+    }
+    marquee.scrollLeft = drag.left - dx;
+  });
+  const endDrag = () => {
+    if (!drag) return;
+    if (drag.moved) {
+      marquee.classList.remove('is-dragging');
+      // Swallow the click that follows a drag (if any — removed right after).
+      const swallow = (ev) => { ev.preventDefault(); ev.stopPropagation(); };
+      marquee.addEventListener('click', swallow, { capture: true, once: true });
+      setTimeout(() => marquee.removeEventListener('click', swallow, { capture: true }), 0);
+    }
+    drag = null;
+  };
+  marquee.addEventListener('pointerup', endDrag);
+  marquee.addEventListener('pointercancel', endDrag);
+  // Native link/image dragging would hijack the gesture.
+  marquee.addEventListener('dragstart', (e) => e.preventDefault());
   marquee.addEventListener('scroll', syncArrows, { passive: true });
   window.addEventListener('resize', () => { if (manual) syncArrows(); });
   if (reduced) syncArrows();

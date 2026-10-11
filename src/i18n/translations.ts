@@ -329,9 +329,9 @@ export const translations: Record<Lang, Translations> = {
     },
     kontakt: {
       kicker: 'KONTAKT',
-      headline: 'Sag Hallo',
+      headline: 'Sagen Sie Hallo',
       intro:
-        'Schreib mir, wenn du mit mir arbeiten möchtest — als Organisation, als Einzelperson, oder als Teil dessen, was Heartfelt Futures werden wird.',
+        'Schreiben Sie mir, wenn Sie mit mir arbeiten möchten — als Organisation, als Einzelperson, oder als Teil dessen, was Heartfelt Futures werden wird.',
       labels: {
         name: 'Name',
         email: 'E-Mail',
@@ -345,14 +345,15 @@ export const translations: Record<Lang, Translations> = {
         email: 'name@beispiel.de',
         phone: 'optional',
         org: 'optional',
-        message: 'Worum geht es? Erzähl mir kurz, was du dir vorstellst.',
+        message: 'Worum geht es? Erzählen Sie mir kurz, was Sie sich vorstellen.',
       },
       anliegen: [
-        'Foresight Studie',
         'Lehre',
-        'Keynote',
         'Workshop',
-        '1:1 Coaching',
+        'Moderation',
+        'Keynote',
+        'Konzeptentwicklung',
+        'Foresight Studie',
         'Presse / Medien',
         'Anderes',
       ],
@@ -363,8 +364,8 @@ export const translations: Record<Lang, Translations> = {
       anliegenAria: 'Anliegen',
       toast: {
         sending: 'Wird gesendet …',
-        success: 'Danke — deine Nachricht ist angekommen.',
-        error: 'Es gab ein Problem beim Senden. Bitte versuch es nochmal oder schreib mir auf <a href="https://www.linkedin.com/in/liameissner/" target="_blank" rel="noopener noreferrer">LinkedIn</a>.',
+        success: 'Danke — Ihre Nachricht ist angekommen.',
+        error: 'Es gab ein Problem beim Senden. Bitte versuchen Sie es nochmal oder schreiben Sie mir auf <a href="https://www.linkedin.com/in/liameissner/" target="_blank" rel="noopener noreferrer">LinkedIn</a>.',
       },
     },
     footer: {
