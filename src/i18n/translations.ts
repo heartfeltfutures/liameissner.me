@@ -221,12 +221,12 @@ export const translations: Record<Lang, Translations> = {
             {
               title: '1:1 Coaching',
               body: 'Einzelsitzungen, z.B. bei Burnout, Long Covid, Trennung, Trauer, Berufs- und Sinnkrisen.',
-              link: { href: 'https://www.liferepairkit.com', label: '→ Termin buchen' },
+              link: { href: 'https://www.liferepairkit.de', label: '→ Termin buchen' },
             },
             {
               title: 'Life Repair Kit',
               body: 'Tools für gutes Leben. Werkzeuge, die dir in schwierigen Zeiten wirklich Halt geben.',
-              link: { href: 'https://www.liferepairkit.com', label: '→ Webseite besuchen' },
+              link: { href: 'https://www.liferepairkit.de', label: '→ Webseite besuchen' },
             },
             {
               title: 'Resilienz-Workshops',
