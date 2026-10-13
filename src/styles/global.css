@@ -10,7 +10,7 @@
   --color-ink: #0f1b3d;
   --color-ink-2: #26345a;
   --color-muted: #55648a;
-  --color-accent: #2b4ea8;
+  --color-accent: #1747ff;
 
   --font-serif: 'EB Garamond', Georgia, 'Times New Roman', serif;
   --font-sans: 'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif;
@@ -18,8 +18,7 @@
 
 :root {
   /* Colour concept "Heartfelt Blue": a cool blue-white ground, night-blue
-     ink, light-blue surfaces and deep-blue bands. The accent is the blue of
-     the Life Repair Kit (Bauhaus-Blau) so both brands share one blue. */
+     ink, light-blue surfaces and deep-blue bands, with Electric Blue accents. */
   --paper: #edf2fb;      /* Morgenblau — page ground */
   --paper-2: #dce5f5;    /* Hellblau — alternating sections, fields */
   --ink: #0f1b3d;        /* Nachtblau — text */
@@ -27,7 +26,7 @@
   --muted: #55648a;      /* Blaugrau — secondary text (≥ 4.5:1 on both grounds) */
   --rule: color-mix(in srgb, var(--ink) 85%, transparent);
   --rule-soft: color-mix(in srgb, var(--ink) 16%, transparent);
-  --accent: #2b4ea8;     /* Heartfelt-Blau (= LRK Bauhaus-Blau) */
+  --accent: #1747ff;     /* Electric Blue — accents (5.5:1 on Morgenblau, 4.9:1 on Hellblau) */
   --accent-soft: color-mix(in srgb, var(--accent) 8%, transparent);
   /* Deep blue bands (Meine Angebote, footer) — LRK editorial blue. */
   --navy: #1a2a5e;
