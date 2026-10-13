@@ -1,31 +1,106 @@
 @import "tailwindcss";
 
-/* ── Design tokens (Tailwind v4 @theme + CSS custom props) ── */
-@theme {
-  --color-paper: #f3efe6;
-  --color-paper-2: #ece5d4;
-  --color-ink: #1a1a1a;
-  --color-ink-2: #2b2520;
-  --color-muted: #6b6258;
-  --color-accent: #1747ff;
+/* Cosmic Octo (Hanken Design Co.) — header wordmark only. Commercial font:
+   the licensed webfont file goes to public/fonts/ (see README there).
+   Until it is present, the browser falls back to the next font in
+   --brand-font. */
+@font-face {
+  font-family: 'Cosmic Octo';
+  src: url('/fonts/CosmicOcto-Regular.woff2') format('woff2'),
+       url('/fonts/CosmicOcto-Regular.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
 
-  --font-serif: 'Instrument Serif', 'GT Sectra', Georgia, serif;
-  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+/* ── Design tokens (Tailwind v4 @theme + CSS custom props) ──
+   Type, spacing, radii, buttons and motion follow the Life Repair Kit
+   design system (liferepairkit.de, styles/tokens.css) so both brands share
+   one typographic voice: EB Garamond (display) + Inter (text). */
+@theme {
+  --color-paper: #f9f8f4;
+  --color-paper-2: #cad1e9;
+  --color-ink: #1e1d1a;
+  --color-ink-2: #1e1d1a;
+  --color-muted: #69635a;
+  --color-accent: #0000ff;
+
+  --font-serif: 'EB Garamond', Georgia, 'Times New Roman', serif;
+  --font-sans: 'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
 :root {
-  --paper: #f3efe6;
-  --paper-2: #ece5d4;
-  --ink: #1a1a1a;
-  --ink-2: #2b2520;
-  --muted: #6b6258;
-  --rule: rgba(26, 26, 26, 0.85);
-  --rule-soft: rgba(26, 26, 26, 0.18);
-  --accent: #1747ff;
-  --accent-soft: rgba(23, 71, 255, 0.08);
-  --serif: 'Instrument Serif', 'GT Sectra', Georgia, serif;
-  --sans: 'Inter', system-ui, -apple-system, sans-serif;
-  --pad-x: clamp(20px, 5vw, 72px);
+  /* Farbpalette „Ein Haus, zwei Linien“ (Heartfelt Futures):
+     neutrals and the blue range are shared with the Life Repair Kit;
+     Electric Blue is Heartfelt Futures' own accent and replaces LRK-Blau. */
+
+  /* Neutrals (shared) */
+  --paper: #f9f8f4;      /* Papier — page ground */
+  --white: #ffffff;      /* Weiß — form fields, text on blue */
+  --ink: #1e1d1a;        /* Tinte — text & headings (15.9:1 on Papier) */
+  --ink-2: var(--ink);
+  --muted: #69635a;      /* Taupe — secondary text (5.6:1 on Papier; NOT on Periwinkle) */
+  --sand: #c7c1b4;       /* Sand — rules, borders */
+  --rule: color-mix(in srgb, var(--ink) 85%, transparent);
+  --rule-soft: var(--sand);
+
+  /* Accent — Electric Blue: line, links, buttons, kickers, the big hero word.
+     Keep it to roughly 6–10 % of a page so it glows rather than shouts. */
+  --accent: #0000ff;     /* 8.1:1 on Papier · white on it 8.6:1 */
+  --accent-soft: color-mix(in srgb, var(--accent) 8%, transparent);
+
+  /* Blue range (from the Life Repair Kit) */
+  --periwinkle: #cad1e9; /* surfaces, boxes, image placeholders, tiles */
+  --lavender: #7e8eca;   /* graphics/illustration only — never text or behind text */
+  --indigo: #243774;     /* dark bands (Meine Angebote) — white 11.2:1 */
+  --night: #121e44;      /* deepest dark (footer) — white 16.2:1 */
+  --paper-2: var(--periwinkle);
+
+  /* Warm counterpoint (shared) */
+  --butter: #fbe6a2;     /* light highlight surfaces — Electric Blue 6.9:1 */
+  --sonne: #f8d472;      /* sparing accent surfaces (Aktuelles tiles) — EB 6.0:1 */
+
+  /* Life Repair Kit — ONLY the line next to the LRK reference. */
+  --lrk-yellow: #eec95c;
+
+  /* Hairline on dark panels — white at 30 %. */
+  --rule-on-dark: color-mix(in srgb, var(--white) 30%, transparent);
+
+  /* Type families */
+  --serif: 'EB Garamond', Georgia, 'Times New Roman', serif;
+  --sans: 'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --brand-font: 'Cosmic Octo', 'Inter', 'Helvetica Neue', Arial, sans-serif;
+
+  /* Type scale (LRK) */
+  --fs-headline: clamp(2rem, 4.5vw, 4rem);      /* section headlines */
+  --fs-statement: clamp(2.5rem, 6vw, 5rem);     /* big statements */
+  --fs-title: clamp(1.5rem, 2.2vw, 2rem);       /* item titles */
+  --fs-lead: clamp(1.25rem, 2.2vw, 2rem);       /* serif lead paragraphs */
+  --fs-body: clamp(1rem, 1.2vw, 1.125rem);      /* body copy */
+  --lh-snug: 1.18;
+  --lh-normal: 1.45;
+  --lh-body: 1.55;
+
+  /* Layout: full-bleed sections with 48px gutters, 24px on phones (LRK) */
+  --pad-x: 48px;
+  --section-y: clamp(64px, 10vw, 128px);
+
+  /* Radii */
+  --radius-field: 8px;
+  --radius-card: 16px;   /* images / tiles */
+  --radius-panel: 32px;  /* coloured boxes */
+  --radius-pill: 999px;
+
+  /* Motion (LRK) */
+  --dur-fast: 140ms;
+  --dur: 300ms;
+  --ease-std: cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+@media (max-width: 768px) {
+  :root {
+    --pad-x: 24px;
+    --section-y: 64px;
+  }
 }
 
 * { box-sizing: border-box; }
@@ -36,39 +111,73 @@ html { scroll-behavior: smooth; }
 body {
   font-family: var(--sans);
   font-size: 16px;
-  line-height: 1.6;
+  line-height: var(--lh-normal);
   color: var(--ink);
   background: var(--paper);
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 }
-::selection { background: var(--accent); color: var(--paper); }
+::selection { background: var(--accent); color: var(--white); }
 
-a { color: var(--accent); text-decoration: none; transition: opacity .2s; }
-a.link { border-bottom: 1px solid var(--accent); padding-bottom: 1px; }
-a:hover { opacity: 0.65; }
+a { color: var(--accent); text-decoration: none; transition: opacity var(--dur-fast) var(--ease-std); }
+a.link { border-bottom: 1px solid currentColor; padding-bottom: 2px; }
+a:hover { opacity: 0.7; }
 
 h1, h2, h3, h4 {
   font-family: var(--serif);
   font-weight: 400;
-  line-height: 1.05;
-  letter-spacing: -0.005em;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
   margin: 0;
   text-wrap: pretty;
 }
-p { margin: 0 0 1em 0; max-width: 60ch; }
+p { margin: 0 0 1em 0; max-width: 64ch; }
 em { font-style: italic; }
 ul { margin: 0; padding: 0; list-style: none; }
 
 .kicker {
   font-family: var(--sans);
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 500;
   letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--muted);
-  margin: 0 0 18px 0;
+  margin: 0 0 20px 0;
 }
+
+/* Buttons — LRK pill shape (Inter 13px/500), in Electric Blue;
+   hover inverts to outline. */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 12px 26px;
+  font-family: var(--sans);
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  line-height: 1.2;
+  color: var(--white);
+  background: var(--accent);
+  border: 1.5px solid var(--accent);
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+  text-decoration: none;
+  transition: background var(--dur-fast) var(--ease-std),
+              color var(--dur-fast) var(--ease-std),
+              border-color var(--dur-fast) var(--ease-std);
+}
+.btn:hover { background: transparent; color: var(--accent); opacity: 1; }
+.btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+/* Outline variant */
+.btn--outline { background: transparent; color: var(--accent); }
+.btn--outline:hover { background: var(--accent); color: var(--white); }
+/* On blue / dark surfaces */
+.btn--light { background: var(--white); color: var(--accent); border-color: var(--white); }
+.btn--light:hover { background: transparent; color: var(--white); }
+.btn--light:focus-visible { outline-color: var(--white); }
 
 .img-placeholder {
   position: absolute; inset: 0;
@@ -77,14 +186,14 @@ ul { margin: 0; padding: 0; list-style: none; }
   font-size: 11px;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: var(--muted);
+  color: var(--ink);
   background:
     repeating-linear-gradient(135deg,
-      rgba(26, 26, 26, 0.05) 0 8px,
+      color-mix(in srgb, var(--lavender) 25%, transparent) 0 8px,
       transparent 8px 16px),
     var(--paper-2);
   text-align: center;
   padding: 16px;
 }
 
-.section { padding: clamp(60px, 9vw, 120px) var(--pad-x); }
+.section { padding: var(--section-y) var(--pad-x); }

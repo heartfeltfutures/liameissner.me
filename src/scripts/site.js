@@ -192,6 +192,106 @@ document.querySelectorAll('.carousel-nav .carousel-btn').forEach((btn) => {
   });
 });
 
+// Aktuelles marquee — the CSS keyframe auto-scrolls a duplicated card list.
+// The first arrow click / arrow-key press switches it into a bounded native
+// scroller (.is-manual, same mechanism as reduced motion) that stops at the
+// first/last card; the arrows disable themselves at those bounds.
+document.querySelectorAll('.news-marquee-wrap').forEach((wrap) => {
+  const marquee = wrap.querySelector('.news-marquee');
+  const track = wrap.querySelector('.news-track');
+  const prev = wrap.querySelector('.news-arrow-prev');
+  const next = wrap.querySelector('.news-arrow-next');
+  if (!marquee || !track || !prev || !next) return;
+
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let manual = reduced;
+
+  const step = () => {
+    const card = marquee.querySelector('.news-card');
+    const styles = getComputedStyle(track);
+    const gap = parseFloat(styles.columnGap || styles.gap || '16') || 0;
+    return (card ? card.getBoundingClientRect().width : 240) + gap;
+  };
+
+  const syncArrows = () => {
+    const max = marquee.scrollWidth - marquee.clientWidth;
+    prev.disabled = marquee.scrollLeft <= 1;
+    next.disabled = marquee.scrollLeft >= max - 1;
+  };
+
+  const enterManual = () => {
+    if (manual) return;
+    manual = true;
+    // Carry the animated position into the native scroller so nothing jumps.
+    const frozen = marquee.getBoundingClientRect().left - track.getBoundingClientRect().left;
+    marquee.classList.add('is-manual');
+    void marquee.scrollWidth; // force reflow before setting scrollLeft
+    marquee.scrollLeft = Math.max(0, frozen);
+    // If all real cards fit, no scroll event will ever fire — sync now.
+    syncArrows();
+  };
+
+  const go = (dir) => {
+    enterManual();
+    marquee.scrollBy({ left: dir * step(), behavior: 'smooth' });
+  };
+
+  prev.addEventListener('click', () => go(-1));
+  next.addEventListener('click', () => go(1));
+  marquee.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowLeft') { e.preventDefault(); go(-1); }
+    else if (e.key === 'ArrowRight') { e.preventDefault(); go(1); }
+  });
+  // Touch: the animated band is overflow:hidden, so the first touch switches
+  // it to the native scroller — swiping works from then on.
+  marquee.addEventListener('touchstart', enterManual, { passive: true });
+
+  // Trackpad / horizontal mouse wheel: switch to the native scroller and let
+  // the browser scroll it. Vertical wheel keeps scrolling the page.
+  marquee.addEventListener('wheel', (e) => {
+    if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) enterManual();
+  }, { passive: true });
+
+  // Mouse drag: click and drag the band sideways. A real drag (> 5px)
+  // suppresses the click so a card link doesn't open on release.
+  let drag = null;
+  marquee.addEventListener('pointerdown', (e) => {
+    if (e.pointerType !== 'mouse' || e.button !== 0) return;
+    drag = { x: e.clientX, left: 0, moved: false };
+  });
+  marquee.addEventListener('pointermove', (e) => {
+    if (!drag) return;
+    const dx = e.clientX - drag.x;
+    if (!drag.moved) {
+      if (Math.abs(dx) < 5) return;
+      drag.moved = true;
+      enterManual();
+      drag.left = marquee.scrollLeft;
+      marquee.classList.add('is-dragging');
+      marquee.setPointerCapture(e.pointerId);
+    }
+    marquee.scrollLeft = drag.left - dx;
+  });
+  const endDrag = () => {
+    if (!drag) return;
+    if (drag.moved) {
+      marquee.classList.remove('is-dragging');
+      // Swallow the click that follows a drag (if any — removed right after).
+      const swallow = (ev) => { ev.preventDefault(); ev.stopPropagation(); };
+      marquee.addEventListener('click', swallow, { capture: true, once: true });
+      setTimeout(() => marquee.removeEventListener('click', swallow, { capture: true }), 0);
+    }
+    drag = null;
+  };
+  marquee.addEventListener('pointerup', endDrag);
+  marquee.addEventListener('pointercancel', endDrag);
+  // Native link/image dragging would hijack the gesture.
+  marquee.addEventListener('dragstart', (e) => e.preventDefault());
+  marquee.addEventListener('scroll', syncArrows, { passive: true });
+  window.addEventListener('resize', () => { if (manual) syncArrows(); });
+  if (reduced) syncArrows();
+});
+
 // About — sync portrait dimensions to the body-text height so the image's
 // top edge aligns with the subline ("Seit über zehn Jahren...") and the
 // bottom edge aligns with the last paragraph. Width derived from the 4:5
@@ -212,8 +312,12 @@ document.querySelectorAll('.carousel-nav .carousel-btn').forEach((btn) => {
     }
     const h = text.getBoundingClientRect().height;
     if (h <= 0) return;
+    // Cap the width: a wider image narrows the text column, which makes the
+    // text taller, which would widen the image again (runaway at mid widths).
+    // Past the cap the portrait keeps the text height and crops (object-fit).
+    const MAX_W = 420;
     img.style.height = `${h}px`;
-    img.style.width = `${h * RATIO}px`;
+    img.style.width = `${Math.min(h * RATIO, MAX_W)}px`;
   }
 
   // Run on initial load

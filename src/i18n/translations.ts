@@ -29,6 +29,8 @@ export type AktuellCard = {
   datum: string;
   cta: string;
   href: string;
+  /** Optional image for the DE "Aktuelles" row: file name in src/assets/aktuelles/ (4:5). */
+  bild?: string;
 };
 
 export type Translations = {
@@ -136,7 +138,8 @@ export const translations: Record<Lang, Translations> = {
       mobileNavLabel: 'Mobile Navigation',
       links: [
         { href: '#wofur', label: 'Mission' },
-        { href: '#arbeit', label: 'Arbeit' },
+        { href: '#formate', label: 'Formate' },
+        { href: '#angebote', label: 'Angebote' },
         { href: '#uber', label: 'Über mich' },
         { href: '#aktuell', label: 'Aktuelles' },
         { href: '#kontakt', label: 'Kontakt' },
@@ -218,12 +221,12 @@ export const translations: Record<Lang, Translations> = {
             {
               title: '1:1 Coaching',
               body: 'Einzelsitzungen, z.B. bei Burnout, Long Covid, Trennung, Trauer, Berufs- und Sinnkrisen.',
-              link: { href: 'https://www.liferepairkit.com', label: '→ Termin buchen' },
+              link: { href: 'https://www.liferepairkit.de', label: '→ Termin buchen' },
             },
             {
               title: 'Life Repair Kit',
               body: 'Tools für gutes Leben. Werkzeuge, die dir in schwierigen Zeiten wirklich Halt geben.',
-              link: { href: 'https://www.liferepairkit.com', label: '→ Webseite besuchen' },
+              link: { href: 'https://www.liferepairkit.de', label: '→ Webseite besuchen' },
             },
             {
               title: 'Resilienz-Workshops',
@@ -268,16 +271,16 @@ export const translations: Record<Lang, Translations> = {
       subline:
         'Seit über zehn Jahren arbeite ich an der Schnittstelle von Zukunftsforschung, Psychologie und künstlerischer Praxis.',
       paragraphsHtml: [
-        'Ich habe Psychologie und Soziologie an den Universitäten Frankfurt am Main und Zürich studiert, später Philosophy, Politics &amp; Economics in Witten/Herdecke und an der Stanford University. Seit 2018 verfasse ich Foresight-Studien für den öffentlichen Sektor — am Fraunhofer-Institut für System- und Innovationsforschung, bei VDI/VDE Innovation + Technik für das Büro für Technikfolgen-Abschätzung beim Deutschen Bundestag.',
-        'Vieles, was ich über Antizipation, Teamwork und Entscheiden unter Unsicherheit weiß, habe ich auf hoher See gelernt — zuletzt bei meiner Atlantiküberquerung 2025 unter Segeln.',
-        'Parallel dazu habe ich eine Ausbildung als systemische Beraterin und Therapeutin abgeschlossen und das <em>Life Repair Kit</em> gegründet — eine Praxis für Menschen, die durch Krise und Transformation gehen.',
+        'Ich habe Psychologie und Soziologie an den Universitäten Frankfurt am Main und Zürich studiert, später Philosophy, Politics &amp; Economics in Witten/Herdecke und an der Stanford University. Seit 2018 verfasse ich Foresight-Studien für den öffentlichen Sektor – am Fraunhofer-Institut für System- und Innovationsforschung, bei VDI/VDE Innovation + Technik für das Büro für Technikfolgen-Abschätzung beim Deutschen Bundestag.',
+        'Vieles, was ich über Antizipation, Teamwork und Entscheiden unter Unsicherheit weiß, habe ich auf hoher See gelernt – zuletzt bei meiner Atlantiküberquerung 2025 unter Segeln.',
+        'Parallel dazu habe ich eine Ausbildung als systemische Beraterin und Therapeutin abgeschlossen und das <em>Life Repair Kit</em> gegründet – eine Praxis für Menschen, die durch Krise und Transformation gehen.',
         'Heute baue ich <em>Heartfelt Futures</em>: eine Praxis, die wissenschaftliche Foresight mit systemischer Klarheit, verkörpertem Wissen und Ästhetik verbindet. Ich lehre Foresight an der Freien Universität Berlin, berate Organisationen und halte Vorträge.',
       ],
       imageAlt: 'Porträt von Lia Meißner im Studio',
     },
     aktuell: {
       kicker: 'AKTUELLES',
-      headline: 'Was gerade läuft.',
+      headline: 'Aktuelles',
       carouselLabel: 'Aktuelles Karussell',
       prevLabel: 'Zurück',
       nextLabel: 'Weiter',
@@ -326,9 +329,9 @@ export const translations: Record<Lang, Translations> = {
     },
     kontakt: {
       kicker: 'KONTAKT',
-      headline: 'Sag Hallo',
+      headline: 'Sagen Sie Hallo',
       intro:
-        'Schreib mir, wenn du mit mir arbeiten möchtest — als Organisation, als Einzelperson, oder als Teil dessen, was Heartfelt Futures werden wird.',
+        'Schreiben Sie mir, wenn Sie mit mir arbeiten möchten — als Organisation, als Einzelperson, oder als Teil dessen, was Heartfelt Futures werden wird.',
       labels: {
         name: 'Name',
         email: 'E-Mail',
@@ -342,14 +345,15 @@ export const translations: Record<Lang, Translations> = {
         email: 'name@beispiel.de',
         phone: 'optional',
         org: 'optional',
-        message: 'Worum geht es? Erzähl mir kurz, was du dir vorstellst.',
+        message: 'Worum geht es? Erzählen Sie mir kurz, was Sie sich vorstellen.',
       },
       anliegen: [
-        'Foresight Studie',
         'Lehre',
-        'Keynote',
         'Workshop',
-        '1:1 Coaching',
+        'Moderation',
+        'Keynote',
+        'Konzeptentwicklung',
+        'Foresight Studie',
         'Presse / Medien',
         'Anderes',
       ],
@@ -360,8 +364,8 @@ export const translations: Record<Lang, Translations> = {
       anliegenAria: 'Anliegen',
       toast: {
         sending: 'Wird gesendet …',
-        success: 'Danke — deine Nachricht ist angekommen.',
-        error: 'Es gab ein Problem beim Senden. Bitte versuch es nochmal oder schreib mir auf <a href="https://www.linkedin.com/in/liameissner/" target="_blank" rel="noopener noreferrer">LinkedIn</a>.',
+        success: 'Danke — Ihre Nachricht ist angekommen.',
+        error: 'Es gab ein Problem beim Senden. Bitte versuchen Sie es nochmal oder schreiben Sie mir auf <a href="https://www.linkedin.com/in/liameissner/" target="_blank" rel="noopener noreferrer">LinkedIn</a>.',
       },
     },
     footer: {

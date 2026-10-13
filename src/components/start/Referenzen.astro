@@ -1,0 +1,60 @@
+---
+// Referenzen (#referenzen) — deutsche Startseite.
+// Die Publikationsliste und der ResearchGate-Link kommen unverändert aus
+// dem bisherigen Bereich „Meine Arbeit → Strategic Foresight“
+// (translations.ts → de.pillars.items[0]), damit es nur eine Quelle gibt.
+import { t } from '../../i18n/translations';
+
+const copy = t('de').pillars;
+const foresight = copy.items[0];
+---
+<section class="section referenzen" id="referenzen">
+  <h2 class="referenzen-headline">Referenzen</h2>
+  {foresight.pubs && (
+    <>
+      <div class="kicker">{copy.pubsKicker}</div>
+      <ul class="pubs">
+        {foresight.pubs.map((pub) => (
+          <li>
+            <span><em>{pub.title}</em></span>
+            <span class="year">{pub.year}</span>
+          </li>
+        ))}
+      </ul>
+    </>
+  )}
+  {foresight.pubsLink && (
+    <a class="link pubs-link" href={foresight.pubsLink.href} target="_blank" rel="noopener noreferrer">{foresight.pubsLink.label}</a>
+  )}
+</section>
+
+<style>
+  .referenzen { background: var(--butter); }
+  .referenzen-headline {
+    font-size: var(--fs-headline);
+    margin-bottom: clamp(28px, 4vw, 44px);
+  }
+  .pubs { max-width: 720px; }
+  .pubs li {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 16px;
+    padding: 12px 0;
+    border-top: 1px solid var(--rule-soft);
+    font-family: var(--serif);
+    font-size: clamp(1.0625rem, 1.3vw, 1.1875rem);
+    line-height: 1.4;
+  }
+  .pubs li:last-child { border-bottom: 1px solid var(--rule-soft); }
+  .pubs .year { color: var(--muted); flex-shrink: 0; }
+  .pubs-link {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    margin-top: 16px;
+    font-size: 14px;
+    font-family: var(--sans);
+    letter-spacing: 0.04em;
+  }
+</style>

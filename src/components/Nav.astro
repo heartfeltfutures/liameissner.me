@@ -10,7 +10,7 @@ const copy = t(lang);
 ---
 <header class="nav" id="top">
   <div class="nav-inner">
-    <a href="#top" class="brand">{copy.brand}</a>
+    <a href="#top" class="brand" aria-label={`Heartfelt Futures – ${copy.brand}`}>Heartfelt Futures</a>
     <div class="nav-right">
       <nav class="nav-links" aria-label={copy.nav.hauptnavLabel}>
         {copy.nav.links.map((l) => <a href={l.href}>{l.label}</a>)}
@@ -67,23 +67,30 @@ const copy = t(lang);
   }
   .nav-inner {
     display: flex; justify-content: space-between; align-items: center;
-    padding: 14px var(--pad-x);
-    font-size: 12px;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
+    padding: 18px var(--pad-x);
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
   }
+  /* Header wordmark: "Heartfelt Futures" in Cosmic Octo (--brand-font,
+     self-hosted in public/fonts/ — see public/fonts/README.md). */
   .brand {
-    font-family: var(--serif);
+    font-family: var(--brand-font);
     font-size: 24px;
+    line-height: 1;
     letter-spacing: 0;
     text-transform: none;
     color: var(--ink);
     white-space: nowrap;
   }
   .nav-right { display: flex; align-items: center; gap: 24px; }
-  .nav-links { display: flex; gap: 22px; }
-  .nav-links :global(a) { color: var(--ink); }
-  .nav-links :global(a:hover) { color: var(--accent); opacity: 1; }
+  .nav-links { display: flex; gap: 28px; }
+  .nav-links :global(a) {
+    color: var(--muted);
+    padding: 6px 0;
+    transition: color var(--dur-fast) var(--ease-std);
+  }
+  .nav-links :global(a:hover) { color: var(--ink); opacity: 1; }
   /* Language toggle — pill pair showing both DE and EN; the active language
      is filled dark, the inactive one is a clickable outline. */
   .nav-lang {
@@ -134,16 +141,20 @@ const copy = t(lang);
   .nav-social :global(svg) { width: 14px; height: 14px; fill: currentColor; display: block; }
   .nav-toggle {
     display: none;
+    min-height: 40px;
     background: none;
-    border: 1px solid var(--rule-soft);
-    padding: 6px 10px;
+    border: 1.5px solid var(--accent);
+    border-radius: var(--radius-pill);
+    padding: 8px 18px;
     font-family: var(--sans);
-    font-size: 11px;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    color: var(--ink);
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    color: var(--accent);
     cursor: pointer;
+    transition: background var(--dur-fast) var(--ease-std), color var(--dur-fast) var(--ease-std);
   }
+  .nav-toggle:hover { background: var(--accent); color: var(--white); }
   .mobile-menu {
     display: none;
     flex-direction: column;
@@ -155,9 +166,10 @@ const copy = t(lang);
   .mobile-menu:global(.open) { display: flex; }
   .mobile-menu :global(a) {
     color: var(--ink);
-    font-size: 13px;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
+    font-size: 15px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    padding: 6px 0;
   }
   /* Mobile menu lang toggle — same pill style as desktop, with a top separator. */
   .mobile-lang {
@@ -170,9 +182,25 @@ const copy = t(lang);
     border-radius: 999px;
     overflow: hidden;
   }
+  /* Wordmark + up to six section links need ~1010px (DE) / ~860px (EN);
+     collapse to the menu button below 1100px, with room to spare for the
+     Cosmic Octo wordmark. */
+  @media (max-width: 1100px) {
+    .nav-links { display: none; }
+    .nav-right { gap: 14px; }
+    .nav-toggle { display: inline-block; }
+  }
   @media (max-width: 760px) {
     .nav-links { display: none; }
     .nav-right { gap: 14px; }
     .nav-toggle { display: inline-block; }
+  }
+  /* Phones: the language switch also lives in the mobile menu, so drop
+     it from the bar to keep brand, socials and menu button on one line. */
+  @media (max-width: 540px) {
+    .nav-right > .nav-lang { display: none; }
+    .nav-right { gap: 12px; }
+    .nav-inner { gap: 16px; }
+    .brand { font-size: 18px; }
   }
 </style>

@@ -67,7 +67,7 @@ Setup notes (one-time, already done): the App is installed at https://github.com
 - **Astro 6** — static site generator, zero-JS by default
 - **Tailwind CSS 4** — via `@tailwindcss/vite`, design tokens in `src/styles/global.css` `@theme` block
 - **Vanilla JS** — small inline scripts for the pillar accordion, chip-group radio, and mobile nav toggle (no framework runtime)
-- **Google Fonts** — Instrument Serif (display) + Inter (sans), preconnected
+- **Google Fonts** — EB Garamond (display) + Inter (sans), preconnected — same pairing as liferepairkit.de
 - **GitHub Pages** — static hosting via Actions workflow on push to `main`
 - **Custom domain** — `liameissner.me` (apex A → 185.199.108.153, AAAA → 2606:50c0:8000::153 at Strato; `www` CNAME → `heartfeltfutures.github.io`)
 - **Contact form** — third-party endpoint (Web3Forms or Formspree); set in `src/components/Kontakt.astro`
@@ -107,9 +107,9 @@ docs/
 ## Conventions
 
 - All copy is German. Don't translate without asking.
-- Design tokens (`--paper`, `--ink`, `--accent`, etc.) come from the wireframe — preserve them.
-- Headlines use `Instrument Serif`; body uses `Inter`. Don't introduce new families.
-- The accent blue `#1747ff` is load-bearing — used for hover states, links, accordion-open numerals, and form-submit hover.
+- Colours follow the Heartfelt Futures palette „Ein Haus, zwei Linien“ (tokens in `global.css`): Papier `--paper`, Weiß `--white`, Tinte `--ink`, Taupe `--muted`, Sand `--sand`; blue range `--periwinkle` / `--lavender` (graphics only) / `--indigo` / `--night`; warm `--butter` / `--sonne`; `--lrk-yellow` only next to the Life Repair Kit reference. Taupe fails contrast on Periwinkle — use Tinte there.
+- Headlines use `EB Garamond`; body uses `Inter`. Don't introduce new families. Type scale, spacing, radii and the pill `.btn` follow the Life Repair Kit design system (tokens in `global.css`).
+- The accent is Electric Blue `#0000FF` (`--accent`) — line, links, buttons, kickers, the big hero word. Keep it to roughly 6–10 % of a page.
 - Mobile breakpoints: `880px` (layout), `760px` (nav), `700px` (form), `540px` (footer).
 - Don't bump dependency major versions without being asked.
 - Don't push without a successful local `npm run build`. (`./scripts/publish.sh` enforces this.)

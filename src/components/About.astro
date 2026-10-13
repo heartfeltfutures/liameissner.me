@@ -56,27 +56,27 @@ const copy = t(lang).about;
   .about-text {
     grid-area: text;
     max-width: 64ch;
-    font-size: 16px;
-    line-height: 1.65;
+    font-size: var(--fs-body);
+    line-height: var(--lh-body);
   }
   .about-text :global(p) { color: var(--ink-2); }
   /* Statement — serif display headline. */
   .about-head :global(.about-statement) {
     font-family: var(--serif);
     font-weight: 400;
-    font-size: clamp(36px, 5vw, 56px);
-    line-height: 1;
-    letter-spacing: -0.015em;
+    font-size: var(--fs-headline);
+    line-height: 1.1;
+    letter-spacing: -0.01em;
     color: var(--ink);
     max-width: none;
     margin: 0;
   }
   /* Subline — sits as the lede of the body column; spacing to body via margin. */
   .about-text :global(.about-subline) {
-    font-family: var(--sans);
-    font-size: clamp(17px, 1.5vw, 20px);
+    font-family: var(--serif);
+    font-size: clamp(1.25rem, 1.9vw, 1.625rem);
     font-weight: 400;
-    line-height: 1.5;
+    line-height: 1.35;
     color: var(--ink);
     max-width: none;
     margin: 0 0 clamp(24px, 3vw, 36px) 0;
@@ -102,9 +102,9 @@ const copy = t(lang).about;
   }
   @media (max-width: 880px) {
     .about {
-      grid-template-columns: 1fr;
+      grid-template-columns: minmax(0, 1fr);
       grid-template-areas: "head" "text" "img";
     }
-    .about-img { aspect-ratio: 3 / 4; height: auto; max-width: 380px; }
+    .about-img { aspect-ratio: 3 / 4; height: auto; width: 100%; max-width: 380px; }
   }
 </style>

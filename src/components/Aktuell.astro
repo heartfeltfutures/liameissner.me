@@ -77,6 +77,12 @@ const copy = t(lang).aktuell;
   }
   .carousel-nav-prev { left: -56px; }
   .carousel-nav-next { right: -56px; }
+  /* Not enough side padding for outside arrows (48px gutters) until the
+     viewport is wide enough — tuck them just inside the track edges. */
+  @media (max-width: 1220px) {
+    .carousel-nav-prev { left: -22px; }
+    .carousel-nav-next { right: -22px; }
+  }
   .carousel-btn {
     width: 44px;
     height: 44px;
@@ -118,6 +124,8 @@ const copy = t(lang).aktuell;
     aspect-ratio: 1 / 1;
     scroll-snap-align: start;
     background: var(--paper-2);
+    /* Periwinkle tile: Taupe is only 3.9:1 here, use Tinte for secondary text. */
+    --muted: var(--ink);
     padding: clamp(20px, 2.5vw, 28px);
     display: flex;
     flex-direction: column;
