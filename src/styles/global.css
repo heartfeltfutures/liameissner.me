@@ -5,33 +5,36 @@
    design system (liferepairkit.de, styles/tokens.css) so both brands share
    one typographic voice: EB Garamond (display) + Inter (text). */
 @theme {
-  --color-paper: #f3efe6;
-  --color-paper-2: #ece5d4;
-  --color-ink: #1a1a1a;
-  --color-ink-2: #2b2520;
-  --color-muted: #6b6258;
-  --color-accent: #1747ff;
+  --color-paper: #edf2fb;
+  --color-paper-2: #dce5f5;
+  --color-ink: #0f1b3d;
+  --color-ink-2: #26345a;
+  --color-muted: #55648a;
+  --color-accent: #2b4ea8;
 
   --font-serif: 'EB Garamond', Georgia, 'Times New Roman', serif;
   --font-sans: 'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
 :root {
-  --paper: #f3efe6;
-  --paper-2: #ece5d4;
-  --ink: #1a1a1a;
-  --ink-2: #2b2520;
-  --muted: #6b6258;
-  --rule: rgba(26, 26, 26, 0.85);
-  --rule-soft: rgba(26, 26, 26, 0.18);
-  --accent: #1747ff;
-  --accent-soft: rgba(23, 71, 255, 0.08);
-  /* Heartfelt Futures band (Meine Angebote) — dark blue. */
-  --navy: #0e1b2e;
-  /* Life Repair Kit — used ONLY for references to the Life Repair Kit. */
-  --lrk-yellow: #e8b300;
+  /* Colour concept "Heartfelt Blue": a cool blue-white ground, night-blue
+     ink, light-blue surfaces and deep-blue bands. The accent is the blue of
+     the Life Repair Kit (Bauhaus-Blau) so both brands share one blue. */
+  --paper: #edf2fb;      /* Morgenblau — page ground */
+  --paper-2: #dce5f5;    /* Hellblau — alternating sections, fields */
+  --ink: #0f1b3d;        /* Nachtblau — text */
+  --ink-2: #26345a;
+  --muted: #55648a;      /* Blaugrau — secondary text (≥ 4.5:1 on both grounds) */
+  --rule: color-mix(in srgb, var(--ink) 85%, transparent);
+  --rule-soft: color-mix(in srgb, var(--ink) 16%, transparent);
+  --accent: #2b4ea8;     /* Heartfelt-Blau (= LRK Bauhaus-Blau) */
+  --accent-soft: color-mix(in srgb, var(--accent) 8%, transparent);
+  /* Deep blue bands (Meine Angebote, footer) — LRK editorial blue. */
+  --navy: #1a2a5e;
+  /* Life Repair Kit — used ONLY for references to the Life Repair Kit (LRK Bauhaus-Gelb). */
+  --lrk-yellow: #f5c842;
   /* Hairline on dark panels — --paper at 30 %. */
-  --rule-on-dark: rgba(243, 239, 230, 0.3);
+  --rule-on-dark: color-mix(in srgb, var(--paper) 30%, transparent);
 
   /* Type families */
   --serif: 'EB Garamond', Georgia, 'Times New Roman', serif;
