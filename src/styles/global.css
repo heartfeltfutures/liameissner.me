@@ -1,6 +1,9 @@
 @import "tailwindcss";
 
-/* ── Design tokens (Tailwind v4 @theme + CSS custom props) ── */
+/* ── Design tokens (Tailwind v4 @theme + CSS custom props) ──
+   Type, spacing, radii, buttons and motion follow the Life Repair Kit
+   design system (liferepairkit.de, styles/tokens.css) so both brands share
+   one typographic voice: EB Garamond (display) + Inter (text). */
 @theme {
   --color-paper: #f3efe6;
   --color-paper-2: #ece5d4;
@@ -9,8 +12,8 @@
   --color-muted: #6b6258;
   --color-accent: #1747ff;
 
-  --font-serif: 'Instrument Serif', 'GT Sectra', Georgia, serif;
-  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-serif: 'EB Garamond', Georgia, 'Times New Roman', serif;
+  --font-sans: 'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
 :root {
@@ -23,20 +26,47 @@
   --rule-soft: rgba(26, 26, 26, 0.18);
   --accent: #1747ff;
   --accent-soft: rgba(23, 71, 255, 0.08);
-  --serif: 'Instrument Serif', 'GT Sectra', Georgia, serif;
-  --sans: 'Inter', system-ui, -apple-system, sans-serif;
-  --pad-x: clamp(20px, 5vw, 72px);
   /* Heartfelt Futures band (Meine Angebote) — dark blue. */
   --navy: #0e1b2e;
   /* Life Repair Kit — used ONLY for references to the Life Repair Kit. */
   --lrk-yellow: #e8b300;
   /* Hairline on dark panels — --paper at 30 %. */
   --rule-on-dark: rgba(243, 239, 230, 0.3);
-  /* Rounded tiles (Aktuelles). */
-  --radius-card: 16px;
-  /* Motion for expand/collapse and hover transitions. */
+
+  /* Type families */
+  --serif: 'EB Garamond', Georgia, 'Times New Roman', serif;
+  --sans: 'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+
+  /* Type scale (LRK) */
+  --fs-headline: clamp(2rem, 4.5vw, 4rem);      /* section headlines */
+  --fs-statement: clamp(2.5rem, 6vw, 5rem);     /* big statements */
+  --fs-title: clamp(1.5rem, 2.2vw, 2rem);       /* item titles */
+  --fs-lead: clamp(1.25rem, 2.2vw, 2rem);       /* serif lead paragraphs */
+  --fs-body: clamp(1rem, 1.2vw, 1.125rem);      /* body copy */
+  --lh-snug: 1.18;
+  --lh-normal: 1.45;
+  --lh-body: 1.55;
+
+  /* Layout: full-bleed sections with 48px gutters, 24px on phones (LRK) */
+  --pad-x: 48px;
+  --section-y: clamp(64px, 10vw, 128px);
+
+  /* Radii */
+  --radius-field: 8px;
+  --radius-card: 16px;   /* images / tiles */
+  --radius-panel: 32px;  /* coloured boxes */
+  --radius-pill: 999px;
+
+  /* Motion (LRK) */
+  --dur-fast: 140ms;
   --dur: 300ms;
-  --ease-std: ease-out;
+  --ease-std: cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+@media (max-width: 768px) {
+  :root {
+    --pad-x: 24px;
+    --section-y: 64px;
+  }
 }
 
 * { box-sizing: border-box; }
@@ -47,7 +77,7 @@ html { scroll-behavior: smooth; }
 body {
   font-family: var(--sans);
   font-size: 16px;
-  line-height: 1.6;
+  line-height: var(--lh-normal);
   color: var(--ink);
   background: var(--paper);
   -webkit-font-smoothing: antialiased;
@@ -55,31 +85,64 @@ body {
 }
 ::selection { background: var(--accent); color: var(--paper); }
 
-a { color: var(--accent); text-decoration: none; transition: opacity .2s; }
-a.link { border-bottom: 1px solid var(--accent); padding-bottom: 1px; }
-a:hover { opacity: 0.65; }
+a { color: var(--accent); text-decoration: none; transition: opacity var(--dur-fast) var(--ease-std); }
+a.link { border-bottom: 1px solid currentColor; padding-bottom: 2px; }
+a:hover { opacity: 0.7; }
 
 h1, h2, h3, h4 {
   font-family: var(--serif);
   font-weight: 400;
-  line-height: 1.05;
-  letter-spacing: -0.005em;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
   margin: 0;
   text-wrap: pretty;
 }
-p { margin: 0 0 1em 0; max-width: 60ch; }
+p { margin: 0 0 1em 0; max-width: 64ch; }
 em { font-style: italic; }
 ul { margin: 0; padding: 0; list-style: none; }
 
 .kicker {
   font-family: var(--sans);
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 500;
   letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--muted);
-  margin: 0 0 18px 0;
+  margin: 0 0 20px 0;
 }
+
+/* Buttons — LRK pill: Inter 13px/500, filled; hover inverts to outline. */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 12px 26px;
+  font-family: var(--sans);
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  line-height: 1.2;
+  color: var(--paper);
+  background: var(--ink);
+  border: 1.5px solid var(--ink);
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+  text-decoration: none;
+  transition: background var(--dur-fast) var(--ease-std),
+              color var(--dur-fast) var(--ease-std),
+              border-color var(--dur-fast) var(--ease-std);
+}
+.btn:hover { background: transparent; color: var(--ink); opacity: 1; }
+.btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+/* Outline variant */
+.btn--outline { background: transparent; color: var(--ink); }
+.btn--outline:hover { background: var(--ink); color: var(--paper); }
+/* On dark / coloured surfaces */
+.btn--light { background: var(--paper); color: var(--ink); border-color: var(--paper); }
+.btn--light:hover { background: transparent; color: var(--paper); }
+.btn--light:focus-visible { outline-color: var(--paper); }
 
 .img-placeholder {
   position: absolute; inset: 0;
@@ -91,11 +154,11 @@ ul { margin: 0; padding: 0; list-style: none; }
   color: var(--muted);
   background:
     repeating-linear-gradient(135deg,
-      rgba(26, 26, 26, 0.05) 0 8px,
+      color-mix(in srgb, var(--ink) 5%, transparent) 0 8px,
       transparent 8px 16px),
     var(--paper-2);
   text-align: center;
   padding: 16px;
 }
 
-.section { padding: clamp(60px, 9vw, 120px) var(--pad-x); }
+.section { padding: var(--section-y) var(--pad-x); }

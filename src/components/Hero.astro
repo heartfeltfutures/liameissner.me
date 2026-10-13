@@ -50,17 +50,17 @@ const copy = t(lang).hero;
   .hero-display {
     margin-top: clamp(20px, 3vw, 36px);
     font-family: var(--serif);
-    font-size: clamp(72px, 13vw, 176px);
-    line-height: 0.86;
-    letter-spacing: -0.022em;
+    font-size: clamp(64px, 10vw, 136px);
+    line-height: 0.95;
+    letter-spacing: -0.02em;
   }
   .hero-display :global(.ital) { font-style: italic; }
   .hero-display :global(.accent) { color: var(--accent); }
   .hero-intro {
     margin-top: clamp(24px, 4vw, 40px);
     max-width: 480px;
-    font-size: clamp(15px, 1.3vw, 18px);
-    line-height: 1.55;
+    font-size: var(--fs-body);
+    line-height: var(--lh-body);
     color: var(--ink-2);
   }
   .hero-img-wrap { display: flex; flex-direction: column; gap: 12px; }

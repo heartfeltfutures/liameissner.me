@@ -67,23 +67,27 @@ const copy = t(lang);
   }
   .nav-inner {
     display: flex; justify-content: space-between; align-items: center;
-    padding: 14px var(--pad-x);
-    font-size: 12px;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
+    padding: 18px var(--pad-x);
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
   }
   .brand {
     font-family: var(--serif);
-    font-size: 24px;
+    font-size: 26px;
     letter-spacing: 0;
     text-transform: none;
     color: var(--ink);
     white-space: nowrap;
   }
   .nav-right { display: flex; align-items: center; gap: 24px; }
-  .nav-links { display: flex; gap: 22px; }
-  .nav-links :global(a) { color: var(--ink); }
-  .nav-links :global(a:hover) { color: var(--accent); opacity: 1; }
+  .nav-links { display: flex; gap: 28px; }
+  .nav-links :global(a) {
+    color: color-mix(in srgb, var(--ink) 60%, transparent);
+    padding: 6px 0;
+    transition: color var(--dur-fast) var(--ease-std);
+  }
+  .nav-links :global(a:hover) { color: var(--ink); opacity: 1; }
   /* Language toggle — pill pair showing both DE and EN; the active language
      is filled dark, the inactive one is a clickable outline. */
   .nav-lang {
@@ -134,16 +138,20 @@ const copy = t(lang);
   .nav-social :global(svg) { width: 14px; height: 14px; fill: currentColor; display: block; }
   .nav-toggle {
     display: none;
+    min-height: 40px;
     background: none;
-    border: 1px solid var(--rule-soft);
-    padding: 6px 10px;
+    border: 1.5px solid var(--ink);
+    border-radius: var(--radius-pill);
+    padding: 8px 18px;
     font-family: var(--sans);
-    font-size: 11px;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
     color: var(--ink);
     cursor: pointer;
+    transition: background var(--dur-fast) var(--ease-std), color var(--dur-fast) var(--ease-std);
   }
+  .nav-toggle:hover { background: var(--ink); color: var(--paper); }
   .mobile-menu {
     display: none;
     flex-direction: column;
@@ -155,9 +163,10 @@ const copy = t(lang);
   .mobile-menu:global(.open) { display: flex; }
   .mobile-menu :global(a) {
     color: var(--ink);
-    font-size: 13px;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
+    font-size: 15px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    padding: 6px 0;
   }
   /* Mobile menu lang toggle — same pill style as desktop, with a top separator. */
   .mobile-lang {
@@ -181,5 +190,11 @@ const copy = t(lang);
     .nav-links { display: none; }
     .nav-right { gap: 14px; }
     .nav-toggle { display: inline-block; }
+  }
+  /* Phones: the language switch also lives in the mobile menu, so drop
+     it from the bar to keep brand, socials and menu button on one line. */
+  @media (max-width: 540px) {
+    .nav-right > .nav-lang { display: none; }
+    .nav-right { gap: 12px; }
   }
 </style>
