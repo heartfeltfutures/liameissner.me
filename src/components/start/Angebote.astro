@@ -38,8 +38,8 @@ import { angebote, angeboteHeadline } from '../../data/angebote';
   /* Full-bleed, vw-based padding — deliberately no centered container. */
   .offers {
     position: relative;
-    background: var(--navy);
-    color: var(--paper);
+    background: var(--indigo);
+    color: var(--white);
     padding: 12vh 8vw;
   }
   .offers-alias { position: absolute; top: 0; }
@@ -72,7 +72,7 @@ import { angebote, angeboteHeadline } from '../../data/angebote';
   }
   .offers-summary::-webkit-details-marker { display: none; }
   .offers-summary:focus-visible {
-    outline: 2px solid var(--paper);
+    outline: 2px solid var(--white);
     outline-offset: 4px;
   }
   .offers-titles { display: flex; flex-direction: column; }
@@ -111,12 +111,12 @@ import { angebote, angeboteHeadline } from '../../data/angebote';
     min-height: 44px;
     margin-top: 0.5rem;
     font-weight: 500;
-    color: var(--paper);
+    color: var(--white);
     text-decoration: underline;
     text-underline-offset: 4px;
   }
   .offers-cta:hover { opacity: 0.8; }
-  .offers-cta:focus-visible { outline: 2px solid var(--paper); outline-offset: 2px; }
+  .offers-cta:focus-visible { outline: 2px solid var(--white); outline-offset: 2px; }
 
   /* Smooth open/close where supported (progressive enhancement). */
   @supports (interpolate-size: allow-keywords) {

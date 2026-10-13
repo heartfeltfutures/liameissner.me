@@ -16,8 +16,8 @@ const bilder = import.meta.glob<{ default: ImageMetadata }>(
 );
 const bildFuer = (datei?: string) => (datei ? bilder[`../../assets/aktuelles/${datei}`]?.default : undefined);
 
-// Flat fallback surfaces in the site's blue and grey tones, cycled per entry.
-const flaechen = ['var(--accent)', 'var(--navy)', 'var(--muted)'];
+// Flat fallback surfaces from the palette (Sonne, Periwinkle, Indigo), cycled per entry.
+const flaechen = ['var(--sonne)', 'var(--periwinkle)', 'var(--indigo)'];
 
 // < 3 entries → static centered row. Otherwise a CSS marquee: the full list is
 // repeated so translateX(-50%) always lands on a copy boundary — 4 copies for
@@ -162,8 +162,8 @@ const groups = Array.from({ length: copies }, (_, g) => g);
     height: 48px;
     border: 0;
     border-radius: 50%;
-    background: var(--ink);
-    color: var(--paper);
+    background: var(--accent);
+    color: var(--white);
     font-family: var(--sans);
     font-size: 18px;
     cursor: pointer;
@@ -171,7 +171,7 @@ const groups = Array.from({ length: copies }, (_, g) => g);
   }
   .news-arrow-prev { left: 8px; }
   .news-arrow-next { right: 8px; }
-  .news-arrow:hover { background: var(--accent); }
+  .news-arrow:hover { background: var(--indigo); }
   .news-arrow:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
   .news-arrow:disabled {
     opacity: 0.35;

@@ -86,7 +86,7 @@ const copy = t(lang);
   .nav-right { display: flex; align-items: center; gap: 24px; }
   .nav-links { display: flex; gap: 28px; }
   .nav-links :global(a) {
-    color: color-mix(in srgb, var(--ink) 60%, transparent);
+    color: var(--muted);
     padding: 6px 0;
     transition: color var(--dur-fast) var(--ease-std);
   }
@@ -143,18 +143,18 @@ const copy = t(lang);
     display: none;
     min-height: 40px;
     background: none;
-    border: 1.5px solid var(--ink);
+    border: 1.5px solid var(--accent);
     border-radius: var(--radius-pill);
     padding: 8px 18px;
     font-family: var(--sans);
     font-size: 13px;
     font-weight: 500;
     letter-spacing: 0.04em;
-    color: var(--ink);
+    color: var(--accent);
     cursor: pointer;
     transition: background var(--dur-fast) var(--ease-std), color var(--dur-fast) var(--ease-std);
   }
-  .nav-toggle:hover { background: var(--ink); color: var(--paper); }
+  .nav-toggle:hover { background: var(--accent); color: var(--white); }
   .mobile-menu {
     display: none;
     flex-direction: column;

@@ -18,35 +18,53 @@
    design system (liferepairkit.de, styles/tokens.css) so both brands share
    one typographic voice: EB Garamond (display) + Inter (text). */
 @theme {
-  --color-paper: #edf2fb;
-  --color-paper-2: #dce5f5;
-  --color-ink: #0f1b3d;
-  --color-ink-2: #26345a;
-  --color-muted: #55648a;
-  --color-accent: #1747ff;
+  --color-paper: #f9f8f4;
+  --color-paper-2: #cad1e9;
+  --color-ink: #1e1d1a;
+  --color-ink-2: #1e1d1a;
+  --color-muted: #69635a;
+  --color-accent: #0000ff;
 
   --font-serif: 'EB Garamond', Georgia, 'Times New Roman', serif;
   --font-sans: 'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
 :root {
-  /* Colour concept "Heartfelt Blue": a cool blue-white ground, night-blue
-     ink, light-blue surfaces and deep-blue bands, with Electric Blue accents. */
-  --paper: #edf2fb;      /* Morgenblau — page ground */
-  --paper-2: #dce5f5;    /* Hellblau — alternating sections, fields */
-  --ink: #0f1b3d;        /* Nachtblau — text */
-  --ink-2: #26345a;
-  --muted: #55648a;      /* Blaugrau — secondary text (≥ 4.5:1 on both grounds) */
+  /* Farbpalette „Ein Haus, zwei Linien“ (Heartfelt Futures):
+     neutrals and the blue range are shared with the Life Repair Kit;
+     Electric Blue is Heartfelt Futures' own accent and replaces LRK-Blau. */
+
+  /* Neutrals (shared) */
+  --paper: #f9f8f4;      /* Papier — page ground */
+  --white: #ffffff;      /* Weiß — form fields, text on blue */
+  --ink: #1e1d1a;        /* Tinte — text & headings (15.9:1 on Papier) */
+  --ink-2: var(--ink);
+  --muted: #69635a;      /* Taupe — secondary text (5.6:1 on Papier; NOT on Periwinkle) */
+  --sand: #c7c1b4;       /* Sand — rules, borders */
   --rule: color-mix(in srgb, var(--ink) 85%, transparent);
-  --rule-soft: color-mix(in srgb, var(--ink) 16%, transparent);
-  --accent: #1747ff;     /* Electric Blue — accents (5.5:1 on Morgenblau, 4.9:1 on Hellblau) */
+  --rule-soft: var(--sand);
+
+  /* Accent — Electric Blue: line, links, buttons, kickers, the big hero word.
+     Keep it to roughly 6–10 % of a page so it glows rather than shouts. */
+  --accent: #0000ff;     /* 8.1:1 on Papier · white on it 8.6:1 */
   --accent-soft: color-mix(in srgb, var(--accent) 8%, transparent);
-  /* Deep blue bands (Meine Angebote, footer) — LRK editorial blue. */
-  --navy: #1a2a5e;
-  /* Life Repair Kit — used ONLY for references to the Life Repair Kit (LRK Bauhaus-Gelb). */
-  --lrk-yellow: #f5c842;
-  /* Hairline on dark panels — --paper at 30 %. */
-  --rule-on-dark: color-mix(in srgb, var(--paper) 30%, transparent);
+
+  /* Blue range (from the Life Repair Kit) */
+  --periwinkle: #cad1e9; /* surfaces, boxes, image placeholders, tiles */
+  --lavender: #7e8eca;   /* graphics/illustration only — never text or behind text */
+  --indigo: #243774;     /* dark bands (Meine Angebote) — white 11.2:1 */
+  --night: #121e44;      /* deepest dark (footer) — white 16.2:1 */
+  --paper-2: var(--periwinkle);
+
+  /* Warm counterpoint (shared) */
+  --butter: #fbe6a2;     /* light highlight surfaces — Electric Blue 6.9:1 */
+  --sonne: #f8d472;      /* sparing accent surfaces (Aktuelles tiles) — EB 6.0:1 */
+
+  /* Life Repair Kit — ONLY the line next to the LRK reference. */
+  --lrk-yellow: #eec95c;
+
+  /* Hairline on dark panels — white at 30 %. */
+  --rule-on-dark: color-mix(in srgb, var(--white) 30%, transparent);
 
   /* Type families */
   --serif: 'EB Garamond', Georgia, 'Times New Roman', serif;
@@ -99,7 +117,7 @@ body {
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 }
-::selection { background: var(--accent); color: var(--paper); }
+::selection { background: var(--accent); color: var(--white); }
 
 a { color: var(--accent); text-decoration: none; transition: opacity var(--dur-fast) var(--ease-std); }
 a.link { border-bottom: 1px solid currentColor; padding-bottom: 2px; }
@@ -127,7 +145,8 @@ ul { margin: 0; padding: 0; list-style: none; }
   margin: 0 0 20px 0;
 }
 
-/* Buttons — LRK pill: Inter 13px/500, filled; hover inverts to outline. */
+/* Buttons — LRK pill shape (Inter 13px/500), in Electric Blue;
+   hover inverts to outline. */
 .btn {
   display: inline-flex;
   align-items: center;
@@ -140,9 +159,9 @@ ul { margin: 0; padding: 0; list-style: none; }
   font-weight: 500;
   letter-spacing: 0.04em;
   line-height: 1.2;
-  color: var(--paper);
-  background: var(--ink);
-  border: 1.5px solid var(--ink);
+  color: var(--white);
+  background: var(--accent);
+  border: 1.5px solid var(--accent);
   border-radius: var(--radius-pill);
   cursor: pointer;
   text-decoration: none;
@@ -150,15 +169,15 @@ ul { margin: 0; padding: 0; list-style: none; }
               color var(--dur-fast) var(--ease-std),
               border-color var(--dur-fast) var(--ease-std);
 }
-.btn:hover { background: transparent; color: var(--ink); opacity: 1; }
+.btn:hover { background: transparent; color: var(--accent); opacity: 1; }
 .btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
 /* Outline variant */
-.btn--outline { background: transparent; color: var(--ink); }
-.btn--outline:hover { background: var(--ink); color: var(--paper); }
-/* On dark / coloured surfaces */
-.btn--light { background: var(--paper); color: var(--ink); border-color: var(--paper); }
-.btn--light:hover { background: transparent; color: var(--paper); }
-.btn--light:focus-visible { outline-color: var(--paper); }
+.btn--outline { background: transparent; color: var(--accent); }
+.btn--outline:hover { background: var(--accent); color: var(--white); }
+/* On blue / dark surfaces */
+.btn--light { background: var(--white); color: var(--accent); border-color: var(--white); }
+.btn--light:hover { background: transparent; color: var(--white); }
+.btn--light:focus-visible { outline-color: var(--white); }
 
 .img-placeholder {
   position: absolute; inset: 0;
@@ -167,10 +186,10 @@ ul { margin: 0; padding: 0; list-style: none; }
   font-size: 11px;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: var(--muted);
+  color: var(--ink);
   background:
     repeating-linear-gradient(135deg,
-      color-mix(in srgb, var(--ink) 5%, transparent) 0 8px,
+      color-mix(in srgb, var(--lavender) 25%, transparent) 0 8px,
       transparent 8px 16px),
     var(--paper-2);
   text-align: center;
