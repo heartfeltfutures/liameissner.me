@@ -10,7 +10,7 @@ const copy = t(lang);
 ---
 <header class="nav" id="top">
   <div class="nav-inner">
-    <a href="#top" class="brand">{copy.brand}</a>
+    <a href="#top" class="brand" aria-label={`Heartfelt Futures – ${copy.brand}`}>Heartfelt Futures</a>
     <div class="nav-right">
       <nav class="nav-links" aria-label={copy.nav.hauptnavLabel}>
         {copy.nav.links.map((l) => <a href={l.href}>{l.label}</a>)}
@@ -72,9 +72,12 @@ const copy = t(lang);
     font-weight: 500;
     letter-spacing: 0.04em;
   }
+  /* Header wordmark: "Heartfelt Futures" in Cosmic Octo (--brand-font,
+     self-hosted in public/fonts/ — see public/fonts/README.md). */
   .brand {
-    font-family: var(--serif);
-    font-size: 26px;
+    font-family: var(--brand-font);
+    font-size: 24px;
+    line-height: 1;
     letter-spacing: 0;
     text-transform: none;
     color: var(--ink);
@@ -179,12 +182,13 @@ const copy = t(lang);
     border-radius: 999px;
     overflow: hidden;
   }
-  /* The German nav has six section links (~965px) — collapse it earlier.
-     The English nav keeps the 760px breakpoint below. */
-  @media (max-width: 1000px) {
-    :global(html[lang="de"]) .nav-links { display: none; }
-    :global(html[lang="de"]) .nav-right { gap: 14px; }
-    :global(html[lang="de"]) .nav-toggle { display: inline-block; }
+  /* Wordmark + up to six section links need ~1010px (DE) / ~860px (EN);
+     collapse to the menu button below 1100px, with room to spare for the
+     Cosmic Octo wordmark. */
+  @media (max-width: 1100px) {
+    .nav-links { display: none; }
+    .nav-right { gap: 14px; }
+    .nav-toggle { display: inline-block; }
   }
   @media (max-width: 760px) {
     .nav-links { display: none; }
@@ -196,5 +200,7 @@ const copy = t(lang);
   @media (max-width: 540px) {
     .nav-right > .nav-lang { display: none; }
     .nav-right { gap: 12px; }
+    .nav-inner { gap: 16px; }
+    .brand { font-size: 18px; }
   }
 </style>

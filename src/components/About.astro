@@ -102,9 +102,9 @@ const copy = t(lang).about;
   }
   @media (max-width: 880px) {
     .about {
-      grid-template-columns: 1fr;
+      grid-template-columns: minmax(0, 1fr);
       grid-template-areas: "head" "text" "img";
     }
-    .about-img { aspect-ratio: 3 / 4; height: auto; max-width: 380px; }
+    .about-img { aspect-ratio: 3 / 4; height: auto; width: 100%; max-width: 380px; }
   }
 </style>

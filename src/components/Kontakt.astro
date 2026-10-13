@@ -169,14 +169,12 @@ const copy = t(lang).kontakt;
     font-style: italic;
   }
 
-  /* Anliegen chips: borderless paper fill, single row at desktop widths,
-     wrap on narrow viewports. Chips distribute across the full row so the
-     first/last align flush with the textarea edges below. */
+  /* Anliegen chips: LRK-style pills that wrap onto as many rows as needed. */
   .chip-group {
     display: flex;
-    flex-wrap: nowrap;
-    justify-content: space-between;
-    gap: 6px;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    gap: 8px;
   }
   .chip {
     font-family: var(--sans);

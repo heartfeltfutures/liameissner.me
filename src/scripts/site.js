@@ -312,8 +312,12 @@ document.querySelectorAll('.news-marquee-wrap').forEach((wrap) => {
     }
     const h = text.getBoundingClientRect().height;
     if (h <= 0) return;
+    // Cap the width: a wider image narrows the text column, which makes the
+    // text taller, which would widen the image again (runaway at mid widths).
+    // Past the cap the portrait keeps the text height and crops (object-fit).
+    const MAX_W = 420;
     img.style.height = `${h}px`;
-    img.style.width = `${h * RATIO}px`;
+    img.style.width = `${Math.min(h * RATIO, MAX_W)}px`;
   }
 
   // Run on initial load

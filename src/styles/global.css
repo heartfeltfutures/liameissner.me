@@ -1,5 +1,18 @@
 @import "tailwindcss";
 
+/* Cosmic Octo (Hanken Design Co.) — header wordmark only. Commercial font:
+   the licensed webfont file goes to public/fonts/ (see README there).
+   Until it is present, the browser falls back to the next font in
+   --brand-font. */
+@font-face {
+  font-family: 'Cosmic Octo';
+  src: url('/fonts/CosmicOcto-Regular.woff2') format('woff2'),
+       url('/fonts/CosmicOcto-Regular.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
 /* ── Design tokens (Tailwind v4 @theme + CSS custom props) ──
    Type, spacing, radii, buttons and motion follow the Life Repair Kit
    design system (liferepairkit.de, styles/tokens.css) so both brands share
@@ -38,6 +51,7 @@
   /* Type families */
   --serif: 'EB Garamond', Georgia, 'Times New Roman', serif;
   --sans: 'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --brand-font: 'Cosmic Octo', 'Inter', 'Helvetica Neue', Arial, sans-serif;
 
   /* Type scale (LRK) */
   --fs-headline: clamp(2rem, 4.5vw, 4rem);      /* section headlines */
